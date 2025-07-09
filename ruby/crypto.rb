@@ -71,7 +71,6 @@ pp data = crypto.fetch(level)
 # Base64 Level 2
 # laughable i know
 # guess = data['challenge'].split(',')
-
 # guess = Base64.decode64(guess[1])
 # was more code here but it magically disappeared
 # guess = guess[-50..-17]

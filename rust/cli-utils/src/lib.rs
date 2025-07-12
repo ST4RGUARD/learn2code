@@ -2,10 +2,11 @@
 //! # Example
 //! ```
 //! let input = read_stdin();
-//! use lib::read_stdin;
+//! use cli_utils::read_stdin;
 //! ```
 use std::io::{BufReader, BufRead};
-
+pub mod colors;
+pub mod config;
 
 /// This function reads a line from stdin and returns it as a String
 /// 

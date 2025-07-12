@@ -3,5 +3,5 @@
 version = 4
 
 [[package]]
-name = "lib"
+name = "cli-utils"
 version = "0.1.0"

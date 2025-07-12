@@ -1,1 +1,2 @@
-rust/target/debug
+rust/workspace/target/debug
+rust/cli-utils/target/debug

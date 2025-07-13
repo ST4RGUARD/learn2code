@@ -1,0 +1,9 @@
+/home/nil/git/learn2code/rust/workspace/code/dataEngineering/hello-marco/target/debug/deps/hello_marco-94538e0c4256f67f.d: src/main.rs Cargo.toml
+
+/home/nil/git/learn2code/rust/workspace/code/dataEngineering/hello-marco/target/debug/deps/libhello_marco-94538e0c4256f67f.rmeta: src/main.rs Cargo.toml
+
+src/main.rs:
+Cargo.toml:
+
+# env-dep:CLIPPY_ARGS=--no-deps__CLIPPY_HACKERY__
+# env-dep:CLIPPY_CONF_DIR

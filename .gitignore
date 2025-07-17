@@ -1,3 +1,4 @@
 rust/workspace/target/debug
 rust/cli-utils/target/debug
+rust/cli-utils/target/rust-analyzer
 rust/workspace/target/rust-analyzer

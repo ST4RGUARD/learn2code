@@ -148,6 +148,8 @@ jupyterlab-widgets==3.0.15
     # via ipywidgets
 kiwisolver==1.4.8
     # via matplotlib
+lxml==6.0.0
+    # via python
 markupsafe==3.0.2
     # via jinja2
     # via nbconvert
@@ -189,7 +191,7 @@ packaging==25.0
     # via jupyterlab-server
     # via matplotlib
     # via nbconvert
-pandas==2.3.0
+pandas==2.3.1
     # via python
 pandocfilters==1.5.1
     # via nbconvert

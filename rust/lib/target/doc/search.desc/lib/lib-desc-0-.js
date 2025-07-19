@@ -1,1 +1,0 @@
-searchState.loadedDescShard("lib", 0, "This is a library that provides utilities for stdin\nThis function reads a line from stdin and returns it as a …")

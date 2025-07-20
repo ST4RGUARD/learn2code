@@ -5,7 +5,8 @@ use clap::Parser;
 #[clap(
     version = "1.0",
     author = "jj",
-    about = "Number of fruits to include"
+    //about = "Number of fruits to include"
+    about = "count freq of words in sentence"
 )]
 struct Opts {
     // numbers

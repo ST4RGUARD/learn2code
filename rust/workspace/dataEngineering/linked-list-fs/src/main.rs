@@ -4,49 +4,53 @@ Choose a random fruit in the salad
 User name fruit to remove from any posiiton displaying name and list after removal
 */
 
-use rand::seq::SliceRandom;
 use rand::prelude::*;
+use rand::seq::SliceRandom;
 use std::collections::LinkedList;
-use std::io::{self, Write};
+use std::io::{self,Write};
 
-fn add_fruit(fruits: &mut LinkedList<String>) {
+fn get_user_fruit() -> String {
+    // print doesn't flush output buffer, println does 
     print!("\nenter a fruit to add: ");
-    io::stdout().flush().unwrap();
-    let mut input = String::new();
-    io::stdin().read_line(&mut input).expect("failed to read line!");
-    
-    let fruit = input.trim().to_string();
+    std::io::stdout().flush().unwrap();
+    let mut fruit = String::new();
+    io::stdin().read_line(&mut fruit).unwrap();
+    fruit.trim().to_string()
+}
+
+fn get_user_fruit_position(fruits: &mut LinkedList<String>) -> usize {
+    print!("enter a fruit position: ");
+    std::io::stdout().flush().unwrap();
+    let mut position = String::new();
+    io::stdin().read_line(&mut position).unwrap();
+    position.trim().parse().unwrap_or(fruits.len())
+}
+
+fn add_user_fruit(fruits: &mut LinkedList<String>) {
+    let fruit = get_user_fruit();
     if fruit.is_empty() {
-        println!("no fruit entered, skipping!!");
+        println!("no fruit entered skipping!");
         return;
     }
 
-    print!("enter a fruit position: ");
-    io::stdout().flush().unwrap();
-    let mut position = String::new();
-    io::stdin().read_line(&mut position).expect("failed to read line!");
-    println!();
-    let position: usize = match position.trim().parse() {
-        Ok(num) if num <= fruits.len() => num,
-        _ => {
-            println!("invalid position, skipping!!");
-            return;
-        }
-    };
+    let position = get_user_fruit_position(fruits);
+    if position > fruits.len() {
+        println!("invalid position skipping!");
+        return;
+    }
 
     let mut new_fruits = LinkedList::new();
-    
     for (i, item) in fruits.iter().enumerate() {
         if i == position {
             new_fruits.push_back(fruit.clone());
         }
         new_fruits.push_back(item.clone());
     }
-    
+
     if position == fruits.len() {
         new_fruits.push_back(fruit);
     }
-    
+
     *fruits = new_fruits;
 }
 
@@ -98,7 +102,6 @@ fn main() {
     choose_fruit(&fruits);
     add_more_fruits(&mut fruits);
     print_fruits(&fruits);
-    add_fruit(&mut fruits);
+    add_user_fruit(&mut fruits);
     print_fruits(&fruits);
 }
-

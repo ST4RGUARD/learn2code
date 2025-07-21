@@ -57,7 +57,4 @@ end
 book_table("2232-32323")
 $tables_remaining
 
-# => GET imahost.com/path
 Request.new.host("imahost.com").port(nil).path("/path")
-
-# >> Sorry, there was a problem making the reservation

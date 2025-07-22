@@ -49,8 +49,9 @@ contourpy==1.3.2
     # via matplotlib
 cycler==0.12.1
     # via matplotlib
-debugpy==1.8.14
+debugpy==1.8.15
     # via ipykernel
+    # via python
 decorator==5.2.1
     # via ipython
 defusedxml==0.7.1

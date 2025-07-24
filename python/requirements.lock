@@ -34,6 +34,8 @@ beautifulsoup4==4.13.4
     # via nbconvert
 bleach==6.2.0
     # via nbconvert
+blinker==1.9.0
+    # via flask
 certifi==2025.6.15
     # via httpcore
     # via httpx
@@ -42,6 +44,8 @@ cffi==1.17.1
     # via argon2-cffi-bindings
 charset-normalizer==3.4.2
     # via requests
+click==8.2.1
+    # via flask
 comm==0.2.2
     # via ipykernel
     # via ipywidgets
@@ -60,6 +64,8 @@ executing==2.2.0
     # via stack-data
 fastjsonschema==2.21.1
     # via nbformat
+flask==3.1.1
+    # via python
 fonttools==4.58.4
     # via matplotlib
 fqdn==1.5.1
@@ -90,9 +96,12 @@ ipywidgets==8.1.7
     # via jupyter
 isoduration==20.11.0
     # via jsonschema
+itsdangerous==2.2.0
+    # via flask
 jedi==0.19.2
     # via ipython
 jinja2==3.1.6
+    # via flask
     # via jupyter-server
     # via jupyterlab
     # via jupyterlab-server
@@ -152,8 +161,10 @@ kiwisolver==1.4.8
 lxml==6.0.0
     # via python
 markupsafe==3.0.2
+    # via flask
     # via jinja2
     # via nbconvert
+    # via werkzeug
 matplotlib==3.10.3
     # via python
 matplotlib-inline==0.1.7
@@ -315,5 +326,7 @@ webencodings==0.5.1
     # via tinycss2
 websocket-client==1.8.0
     # via jupyter-server
+werkzeug==3.1.3
+    # via flask
 widgetsnbextension==4.0.14
     # via ipywidgets

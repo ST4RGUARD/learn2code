@@ -13,6 +13,7 @@ dependencies = [
     "ipython>=9.4.0",
     "lxml>=6.0.0",
     "debugpy>=1.8.15",
+    "flask>=3.1.1",
 ]
 readme = "README.md"
 requires-python = ">= 3.8"

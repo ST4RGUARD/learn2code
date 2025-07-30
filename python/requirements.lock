@@ -258,6 +258,7 @@ referencing==0.36.2
     # via jupyter-events
 requests==2.32.4
     # via jupyterlab-server
+    # via python
 rfc3339-validator==0.1.4
     # via jsonschema
     # via jupyter-events

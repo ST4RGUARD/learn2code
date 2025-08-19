@@ -1,5 +1,5 @@
 [package]
-name = "fruit_vec_lab"
+name = "fruit-vec-lab"
 version = "0.1.0"
 edition = "2024"
 

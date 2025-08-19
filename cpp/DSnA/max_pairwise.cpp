@@ -1,15 +1,12 @@
 #include <iostream>
 using namespace std;
 
-
 int main() {
     int count;
     cin >> count;
-    int arr[100];
+    long long* arr = new long long [count];
     for (int i = 0; i < count; ++i) {
-        char c;
-        cin >> c;
-        arr[i] = c - '0';
+        cin >> arr[i];
     }
 
     // Bubble sort
@@ -24,6 +21,6 @@ int main() {
     }
     
     cout << arr[count - 1] * arr[count - 2];
-
+    delete[] arr;
     return 0;
 }

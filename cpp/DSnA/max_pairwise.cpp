@@ -1,23 +1,29 @@
 #include <iostream>
-#include <vector>
-#include <algorithm>
-#include <cstdlib>
+using namespace std;
 
-int main(int argc, char* argv[]) {
-    std::vector<int> numbers;
 
-    for (int i = 1; i < argc; i++) {
-        numbers.push_back(std::stoi(argv[i]));
+int main() {
+    int count;
+    cin >> count;
+    int arr[100];
+    for (int i = 0; i < count; ++i) {
+        char c;
+        cin >> c;
+        arr[i] = c - '0';
     }
 
-    std::sort(numbers.begin(), numbers.end());
-
-    std::cout << "Sorted numbers: ";
-    for (int n : numbers) {
-        std::cout << n << " ";
+    // Bubble sort
+    for (int i = 0; i < count - 1; i++) {
+        for (int j = 0; j < count - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                int temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
     }
-    std::cout << std::endl;
+    
+    cout << arr[count - 1] * arr[count - 2];
 
     return 0;
 }
-

@@ -33,16 +33,16 @@ struct Args {
     guess: bool,
 }
 
-fn main() {
+fn parse_args() {
     let args = Args::parse();
 
     if args.cli_msg.is_none() && args.msg_file.is_none() {
-        eprintln!("Please provide a message to decrypt using --message or --msg-file.");
+        eprintln!("Please provide a message to decrypt using --cli-msg or --msg-file.");
         return;
     }
 
     if args.cli_msg.is_some() && args.msg_file.is_some() {
-        eprintln!("Please provide only one of --message or --msg-file.");
+        eprintln!("Please provide only one of --cli-msg or --msg-file.");
         return;
     }
 
@@ -54,12 +54,12 @@ fn main() {
             .expect("Failed to read the message file")
     };
 
-    println!("Message to decrypt: {}", message);
-
     if args.stats {
         print_stats_analysis(&message);
     }
-    
+
+    println!("Message to decrypt: {}", message);
+
     if args.guess {
         let (depth, best_shift, decrypted, max_score) = decoder_ring::guess_shift(&message, 26);
         println!(
@@ -68,4 +68,8 @@ fn main() {
         );
         println!("Decrypted message: {}", decrypted);        
     }
+}
+
+fn main() {
+    parse_args();
 }

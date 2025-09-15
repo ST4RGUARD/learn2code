@@ -1,37 +1,57 @@
-alpha = ("a".."z")
-ref = {}
+count = gets.chomp
 
-alpha.each_with_index { |k, v| ref[k] = v }
-str1 = gets.chomp.downcase
-str2 = gets.chomp.downcase
+def cut(dand)
+  empty = true
+  dand.each do |i|
+    if i.odd?
+     empty = false 
+    end
+  end
 
-new_s1 = []
-new_s2 = []
 
-str1.split("").each do |i|
-  new_s1 << ref[i]
-end
+  evens = []
+  odds  = []
 
-str2.split("").each do |i|
-  new_s2 << ref[i]
-end
+  dand.each do |i|
+    if i.even?
+      evens << i
+    else
+      odds << i
+    end
+  end
 
-equal = 0
+  odds  = odds.sort
+  evens = evens.sort
+  rodds = odds.sort.reverse
+  queue = []
 
-new_s1.each_with_index do |val, i|
-  if val == new_s2[i]
-    equal = 1
-  elsif (val < new_s2[i])
-    equal = 0
-    puts("-1")
-    exit
+  evens.each{|i| queue << i}
+  while odds.size > 0
+    if odds.size == rodds.size
+      odds.each do |i|
+        queue << odds[i]
+        odds.shift
+        rodds.shift
+      end
+    end
+  end
+
+ puts "queue: #{queue}"
+  sum = 0
+  if empty == true
+    puts "0"
   else
-    equal = 0
-    puts("1")
-    exit
+    queue.each{|i| sum += i}
+    puts sum
   end
 end
 
-if equal == 1
-  puts("0")
+
+args = []
+count.to_i.times do
+  _fields = gets.chomp
+  dand = gets.chomp.split.map(&:to_i)
+  args << dand
 end
+
+args.each{|i| cut(i)}

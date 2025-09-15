@@ -1,17 +1,22 @@
-use std::{i32, io};
+use std::io::{self, BufRead};
 
 fn main() {
-    let mut input = String::new();
+    let stdin = io::stdin();
+    let mut numbers = Vec::new();
 
-    io::stdin().read_line(&mut input).expect("Failed to read line");
+    for line in stdin.lock().lines() {
+        let line = line.expect("Failed to read line");
+        if line.trim().is_empty() {
+            break;
+        }
+        let nums: Vec<i32> = line
+            .split_whitespace()
+            .map(|x| x.parse::<i32>().expect("Not a number"))
+            .collect();
+        numbers.extend(nums);
+    }
 
-    let mut nums = input
-        .trim()
-        .split_whitespace()
-        .map(|x| x.parse::<i32>().expect("Not a number"));
-
-    let n = nums.next().unwrap();
-    let m = nums.next().unwrap();
-
+    let count = numbers[0];
+    println!("count: {}", count);
 
 }

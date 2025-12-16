@@ -1,9 +1,8 @@
 #include "MerkelMain.h"
-#include "CSVReader.h"
+#include "OrderBookEntry.h"
 #include <iostream>
 #include <ostream>
 #include <string>
-#include <vector>
 using namespace std;
 
 ostream &operator<<(ostream &os, OrderBookType t) {
@@ -20,13 +19,10 @@ ostream &operator<<(ostream &os, OrderBookType t) {
 
 MerkelMain::MerkelMain() {}
 void MerkelMain::init() {
-  computeOrders();
   printMenu();
   userChoice();
   displayOutput();
 }
-
-void MerkelMain::computeOrders() { orders = CSVReader::readCSV("dataset.csv"); }
 
 void MerkelMain::printMenu() {
   cout << "1: Print help" << endl;
@@ -85,33 +81,33 @@ void MerkelMain::userChoice() {
 
 double MerkelMain::computeAveragePrice() {
   double avg = 0.0;
-  for (int i = 0; i < orders.size(); ++i) {
-    avg += orders[i].price;
-  }
-  return avg / orders.size();
+  // for (int i = 0; i < orders.size(); ++i) {
+  //   avg += orders[i].price;
+  // }
+  // return avg / orders.size();
 }
 
 double MerkelMain::computeLowPrice() {
   double low = 0.0;
-  for (int i = 0; i < orders.size(); ++i) {
-    if (i == 0) {
-      low = orders[i].price;
-    }
-
-    if (orders[i].price < low) {
-      low = orders[i].price;
-    }
-  }
+  // for (int i = 0; i < orders.size(); ++i) {
+  //   if (i == 0) {
+  //     low = orders[i].price;
+  //   }
+  //
+  //   if (orders[i].price < low) {
+  //     low = orders[i].price;
+  //   }
+  // }
   return low;
 }
 
 double MerkelMain::computeHighPrice() {
   double high = 0.0;
-  for (int i = 0; i < orders.size(); ++i) {
-    if (orders[i].price > high) {
-      high = orders[i].price;
-    }
-  }
+  // for (int i = 0; i < orders.size(); ++i) {
+  //   if (orders[i].price > high) {
+  //     high = orders[i].price;
+  //   }
+  // }
   return high;
 }
 
@@ -120,18 +116,24 @@ double MerkelMain::computePriceSpread() {
 }
 
 void MerkelMain::printMarketStats() {
-  cout << "orders size: " << orders.size() << endl;
-  unsigned int bids = 0;
-  unsigned int asks = 0;
-  for (OrderBookEntry obe : orders) {
-    if (obe.orderType == OrderBookType::bid) {
-      bids++;
-    } else if (obe.orderType == OrderBookType::ask) {
-      asks++;
-    }
+  for (string const &p : orderBook.getKnownProducts()) {
+    cout << "Product: " << p << endl;
+    vector<OrderBookEntry> entries = orderBook.getOrders(
+        OrderBookType::ask, p, "2020/03/17 17:01:24.884492");
+    cout << "Asks seen: " << entries.size() << endl;
   }
-  cout << "Bids: " << bids << endl;
-  cout << "Asks: " << asks << endl;
+  // cout << "orders size: " << orders.size() << endl;
+  // unsigned int bids = 0;
+  // unsigned int asks = 0;
+  // for (OrderBookEntry obe : orders) {
+  //   if (obe.orderType == OrderBookType::bid) {
+  //     bids++;
+  //   } else if (obe.orderType == OrderBookType::ask) {
+  //     asks++;
+  //   }
+  // }
+  // cout << "Bids: " << bids << endl;
+  // cout << "Asks: " << asks << endl;
 }
 
 void MerkelMain::displayOutput() {

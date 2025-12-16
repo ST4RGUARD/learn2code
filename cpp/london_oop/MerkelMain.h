@@ -1,4 +1,5 @@
 #include "OrderBookEntry.h"
+#include "OrderBook.h"
 #include <vector>
 
 class MerkelMain {
@@ -19,5 +20,5 @@ private:
   double computeLowPrice();
   double computePriceSpread();
 
-  vector<OrderBookEntry> orders;
+  OrderBook orderBook{"dataset.csv"};
 };

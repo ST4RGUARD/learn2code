@@ -13,6 +13,11 @@ public:
   /** return vector of all known products */
   vector<string> getKnownProducts();
   /** return vector of orders according to the sent filters */
-  vector<OrderBookEntry> getOrders(OrderBookType type, string product,
+  vector<OrderBookEntry> getOrders(OrderBookType type,
+                                   string product,
                                    string timestamp);
+
+private:
+  vector<OrderBookEntry> orders;
+
 };

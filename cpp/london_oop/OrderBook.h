@@ -16,6 +16,13 @@ public:
   vector<OrderBookEntry> getOrders(OrderBookType type,
                                    string product,
                                    string timestamp);
+ 
+  string getEarliestTime();
+  string getNextTime(string timestamp);
+
+  
+  static double getHighPrice(vector<OrderBookEntry>& orders);
+  static double getLowPrice(vector<OrderBookEntry>& orders);
 
 private:
   vector<OrderBookEntry> orders;

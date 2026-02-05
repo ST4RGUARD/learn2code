@@ -19,7 +19,7 @@ ostream &operator<<(ostream &os, OrderBookType t) {
 
 MerkelMain::MerkelMain() {}
 void MerkelMain::init() {
-  printMenu();
+  currentTime = orderBook.getEarliestTime();
   userChoice();
   displayOutput();
 }
@@ -32,19 +32,20 @@ void MerkelMain::printMenu() {
   cout << "5: Print wallet" << endl;
   cout << "6: Continue" << endl;
   cout << "7: Exit" << endl;
+  cout << "============================" << endl;
+  cout << "Current time is: " << currentTime << endl;
 }
 
 void MerkelMain::processChoice(int choice) {
   switch (choice) {
   case 1:
     cout << "++ Help menu ++" << endl;
-    MerkelMain::printMenu();
     break;
   case 2:
     MerkelMain::printMarketStats();
     break;
   case 3:
-    cout << "Place an ask not implemented yet." << endl;
+    cout << "Place ankask not implemented yet." << endl;
     break;
   case 4:
     cout << "Place a bid not implemented yet." << endl;
@@ -53,7 +54,7 @@ void MerkelMain::processChoice(int choice) {
     cout << "Wallet not implemented yet." << endl;
     break;
   case 6:
-    cout << "Continuing..." << endl;
+    gotoNextTimeframe();
     break;
   default:
     cout << "Invalid choice. Please type in 1-7." << endl;
@@ -61,9 +62,15 @@ void MerkelMain::processChoice(int choice) {
   }
 }
 
+void MerkelMain::gotoNextTimeframe() {
+  cout << "Going to next time frame" << endl;
+  currentTime = orderBook.getNextTime(currentTime);
+}
+
 void MerkelMain::userChoice() {
   while (true) {
     string input;
+    printMenu();
     cout << "Type in 1-7" << endl;
     getline(cin, input);
     try {
@@ -121,6 +128,8 @@ void MerkelMain::printMarketStats() {
     vector<OrderBookEntry> entries = orderBook.getOrders(
         OrderBookType::ask, p, "2020/03/17 17:01:24.884492");
     cout << "Asks seen: " << entries.size() << endl;
+    cout << "Max ask: " << OrderBook::getHighPrice(entries) << endl;
+    cout << "Min ask: " << OrderBook::getLowPrice(entries) << endl;
   }
   // cout << "orders size: " << orders.size() << endl;
   // unsigned int bids = 0;

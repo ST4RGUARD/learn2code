@@ -14,11 +14,14 @@ private:
   void printMarketStats();
   void processChoice(int choice);
   void userChoice();
+  void gotoNextTimeframe();
   void displayOutput();
   double computeAveragePrice();
   double computeHighPrice();
   double computeLowPrice();
   double computePriceSpread();
+
+  string currentTime;
 
   OrderBook orderBook{"dataset.csv"};
 };

@@ -1,5 +1,6 @@
 #include "OrderBookEntry.h"
 #include "OrderBook.h"
+#include "Wallet.h"
 #include <vector>
 
 class MerkelMain {
@@ -12,16 +13,15 @@ private:
   void computeOrders();
   void printMenu();
   void printMarketStats();
+  void enterBid();
+  void enterAsk();
+  void printWallet();
   void processChoice(int choice);
   void userChoice();
   void gotoNextTimeframe();
-  void displayOutput();
-  double computeAveragePrice();
-  double computeHighPrice();
-  double computeLowPrice();
-  double computePriceSpread();
 
   string currentTime;
 
   OrderBook orderBook{"dataset.csv"};
+  Wallet wallet;
 };

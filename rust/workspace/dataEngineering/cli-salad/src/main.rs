@@ -1,5 +1,4 @@
-use clap::Parser;
-use cli_salad::create_fruit_salad;
+use cli_salad::make_fruit_salad;
 
 #[derive(Parser)]
 #[clap(
@@ -13,18 +12,18 @@ struct Opts {
 }
 
 fn main() {
-    let opts: Opts = Opts::parse();
+    make_fruit_salad(num_fruits);
 
     // Get the number of fruits the user requested
     let num_fruits = opts.number;
 
     // Create the fruit salad
-    create_fruit_salad(num_fruits);
+        make_fruit_salad(num_fruits);
 
     // Print the fruit salad in human readable format with a count of fruits used
     println!(
         "Created Fruit salad with {} fruits: {:?}",
         num_fruits,
-        create_fruit_salad(num_fruits)
+        make_fruit_salad(num_fruits);
     );
 }

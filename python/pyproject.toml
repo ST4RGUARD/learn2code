@@ -17,7 +17,7 @@ dependencies = [
     "requests>=2.32.4",
 ]
 readme = "README.md"
-requires-python = ">= 3.8"
+requires-python = ">= 3.11"
 
 [build-system]
 requires = ["hatchling"]
@@ -32,3 +32,6 @@ allow-direct-references = true
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/python"]
+
+[dependency-groups]
+dev = []

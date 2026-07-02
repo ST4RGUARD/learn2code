@@ -1,0 +1,23 @@
+[project]
+name = "llm-ops"
+version = "0.1.0"
+description = "LLM Operations examples"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "ipykernel>=6.29",
+    "ipywidgets>=8.1",
+    "openai>=1.95",
+    "pandas>=2.2",
+    "qdrant-client>=1.15",
+    "sentence-transformers>=5.0",
+]
+
+[dependency-groups]
+dev = [
+    "ipython>=8.0.0",
+    "pytest>=8.0.0",
+]
+
+[tool.uv]
+package = false

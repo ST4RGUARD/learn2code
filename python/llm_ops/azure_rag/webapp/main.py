@@ -3,9 +3,8 @@ import openai
 from fastapi import FastAPI
 from fastapi.responses import RedirectResponse
 from pydantic import BaseModel
-from langchain.embeddings import OpenAIEmbeddings
-from langchain.vectorstores import AzureSearch
-
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.vectorstores import AzureSearch
 
 app = FastAPI()
 

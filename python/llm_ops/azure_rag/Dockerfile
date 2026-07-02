@@ -1,12 +1,17 @@
-FROM python:3.10
+# Use a lightweight Python base image
+FROM python:3.10-slim
 
-COPY ./requirements.txt /webapp/requirements.txt
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
 WORKDIR /webapp
 
-RUN pip install -r requirements.txt
+COPY pyproject.toml uv.lock ./
 
-COPY webapp/* /webapp
+RUN uv sync --frozen --no-dev
+
+COPY webapp/ .
+
+ENV PATH="/webapp/.venv/bin:$PATH"
 
 ENTRYPOINT [ "uvicorn" ]
 

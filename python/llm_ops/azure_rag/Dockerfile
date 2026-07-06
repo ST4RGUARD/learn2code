@@ -9,7 +9,9 @@ COPY pyproject.toml uv.lock ./
 
 RUN uv sync --frozen --no-dev
 
+# Copy your code AND the data file
 COPY webapp/ .
+COPY wine-ratings.csv ./
 
 ENV PATH="/webapp/.venv/bin:$PATH"
 

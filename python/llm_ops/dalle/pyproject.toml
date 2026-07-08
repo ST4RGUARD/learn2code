@@ -1,0 +1,30 @@
+[project]
+name = "llm-ops"
+version = "0.1.0"
+description = "LLM Operations examples"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "accelerate>=1.14.0",
+    "diffusers>=0.39.0",
+    "invisible-watermark>=0.2.0",
+    "ipykernel>=6.29",
+    "ipython-icat>=0.5.0",
+    "ipywidgets>=8.1",
+    "openai>=1.95",
+    "pandas>=2.2",
+    "pillow>=12.3.0",
+    "qdrant-client>=1.15",
+    "sentence-transformers>=5.0",
+    "timg>=1.1.6",
+    "transformers>=5.13.0",
+]
+
+[dependency-groups]
+dev = [
+    "ipython>=8.0.0",
+    "pytest>=8.0.0",
+]
+
+[tool.uv]
+package = false

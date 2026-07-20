@@ -1,109 +1,88 @@
 from dotenv import load_dotenv
 import os
-import json
-from os.path import dirname
+import asyncio
+
+from azure.identity.aio import DefaultAzureCredential
+from azure.ai.inference.aio import ChatCompletionsClient
+
 import semantic_kernel as sk
-from semantic_kernel.connectors.ai.open_ai import AzureChatCompletion
-from semantic_kernel.skill_definition import sk_function, sk_function_context_parameter
-from semantic_kernel.orchestration.sk_context import SKContext
+from semantic_kernel.connectors.ai.azure_ai_inference import (
+    AzureAIInferenceChatCompletion,
+)
+from semantic_kernel.functions import kernel_function
 
 
 class TravelWeather:
-    @sk_function(
-        description="Takes a city and a month and returns the average temperature for that month.",
+    @kernel_function(
         name="travel_weather",
+        description="Returns the average temperature for a city and month.",
     )
-    @sk_function_context_parameter(
-        name="city", description="The city for which to get the average temperature."
-    )
-    @sk_function_context_parameter(
-        name="month", description="The month for which to get the average temperature."
-    )
-    def weather(self, context: SKContext) -> str:
-        return f"The average temperature in city in month is 75 degrees. {str(context)}"
+    def weather(
+        self,
+        city: str,
+        month: str,
+    ) -> str:
+        return (
+            f"The average temperature in {city} during {month} "
+            f"is 75 degrees. This is an amazing choice!"
+        )
 
-
-current_dir = dirname(os.path.abspath(__file__))
-env_file = os.path.join(current_dir, '.env')
-
-
-# Native Python function that can work with the Kernel
-def travel_weather(city=None, month=None) -> str:
-    print(f"The average temperature in {city} in {month} is 75 degrees. This is an amazing choice!")
-
-native_functions = {"travel_weather": travel_weather}
 
 async def main():
-    # Load the .env file. Replace the path with the path to your .env file.
-    load_dotenv(env_file)
-    deployment_name = os.environ["AZURE_OPENAI_DEPLOYMENT_NAME"]
-    endpoint = os.environ["AZURE_OPENAI_ENDPOINT"]
-    api_key = os.environ["AZURE_OPENAI_API_KEY"]
+    load_dotenv()
 
-    kernel = sk.Kernel(log=sk.NullLogger())
-    kernel.add_chat_service(
-        "chat-gpt",
-        AzureChatCompletion(
-            deployment_name=deployment_name,
-            endpoint=endpoint,
-            api_key=api_key,
-            api_version="2023-07-01-preview"
+    deployment = os.environ["AZURE_MODEL_NAME"]
+    endpoint = os.environ["AZURE_AI_ENDPOINT"].rstrip("/")
+
+    credential = DefaultAzureCredential()
+
+    client = ChatCompletionsClient(
+        endpoint=f"{endpoint}/openai/deployments/{deployment}",
+        credential=credential,
+        credential_scopes=[
+            "https://cognitiveservices.azure.com/.default",
+        ],
+    )
+
+    kernel = sk.Kernel()
+
+    kernel.add_service(
+        AzureAIInferenceChatCompletion(
+            service_id="chat",
+            ai_model_id=deployment,
+            client=client,
+            instruction_role="developer",
         )
     )
 
-    prompt_config = sk.PromptTemplateConfig.from_completion_parameters(
-        max_tokens=2000,
-        temperature=0.7,
-        top_p=0.8,
-        function_call="auto",
-        chat_system_prompt="You are a travel weather chat bot. Your name is Frederick. You are trying to help people find the average temperature in a city in a month.",
-    )
-    prompt_template = sk.ChatPromptTemplate(
-        "{{$user_input}}", kernel.prompt_template_engine, prompt_config
+    kernel.add_plugin(
+        TravelWeather(),
+        plugin_name="TravelWeather",
     )
 
+    prompt = """
+    You are a travel weather chatbot named Frederick.
 
-    function_config = sk.SemanticFunctionConfig(prompt_config, prompt_template)
-    chat_function = kernel.register_semantic_function("ChatBot", "Chat", function_config)
-    functions = [
-        {
-            "name": "travel_weather",
-            "description": "Finds the average temperature for a city in a month.",
-            "parameters": {
-                "type": "object",
-                "properties": {
-                    "city": {
-                        "type": "string",
-                        "description": "The city for example Madrid",
-                    },
-                    "month": {
-                        "type": "string",
-                        "description": "The month of the year, for example June",
-                    },
-                },
-                "required": ["city", "month"],
-            },
-        }
-    ]
-    context = kernel.create_new_context()
+    Help the user find the average temperature for their destination.
+    Use the travel_weather function when you need temperature information.
 
-    context.variables["user_input"] = "I'm travelling to Lima, and it seems that it would happen in August. What would be the average temperature?"
-    context = await chat_function.invoke_async(context=context, functions=functions)
+    User request:
+    {{$input}}
+    """
 
-    if context.error_occurred:
-        print(f"Error occurred: {context.last_error_description}")
-        return
+    result = await kernel.invoke_prompt(
+        prompt,
+        input=(
+            "I'm travelling to Lima, and it seems that it would happen "
+            "in August. What would be the average temperature?"
+        ),
+    )
 
-    if function_call := context.objects.pop('function_call', None):
-        print(f"Function to be called: {function_call.name}")
-        print(f"Function parameters: \n{function_call.arguments}")
-        arguments = json.loads(function_call.arguments)
-        function_to_call = native_functions[function_call.name]
-        function_to_call(**arguments)
-  
+    print(result)
 
-# Run the main function
+    await client.close()
+    await credential.close()
+
+
 if __name__ == "__main__":
-    import asyncio
-
     asyncio.run(main())

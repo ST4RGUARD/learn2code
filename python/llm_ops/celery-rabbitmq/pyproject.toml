@@ -1,0 +1,17 @@
+[project]
+name = "celery-rabbitmq"
+version = "0.1.0"
+description = "Converted from requirements.txt; dependencies are unpinned to use latest versions."
+readme = "README.md"
+requires-python = ">=3.13.2"
+dependencies = [
+  "Flask",
+  "celery",
+  "beautifulsoup4",
+  "requests",
+]
+
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+

@@ -1,0 +1,89 @@
+use std::io::{self, BufRead};
+
+fn main() {
+    let stdin = io::stdin();
+    let mut nums = Vec::new();
+
+    for line in stdin.lock().lines() {
+        let line = line.expect("Failed to read line");
+        if line.trim().is_empty() {
+            break;
+        }
+
+        let num: Vec<i32> = line
+            .split_whitespace()
+            .map(|x| x.parse::<i32>().expect("Not a num"))
+            .collect();
+        nums.extend(num);
+    }
+    
+    nums.push(nums[0]);
+    let mut games = nums[nums.len() -1];
+    // println!("nums {:?}",nums);
+    nums.pop();
+    nums = nums[1..nums.len()].to_vec();
+    println!("nums {:?}",nums);
+    // println!("games {:?}",games);
+    loop {
+        if games == 0 {
+            break;
+        }
+
+        let mut turns = 0;
+        'counting_turns: loop {
+            if nums[0] == nums[1] || nums[0] == nums[2] || nums[1] == nums[2] {
+                println!("{}", turns);
+                println!("here 1");
+                break 'counting_turns;
+            } else if nums[0] > nums[1] && nums[0] > nums[2] {
+                if nums[1].max(nums[2]) == nums[1] {
+                println!("here 2");
+                    nums[2] += 1;
+                } else if nums[1].max(nums[2]) == nums[2] {
+                println!("here 3");
+                    nums[1] += 1;
+                }
+                println!("here 4");
+                nums[0] -= 1;
+                turns += 1;
+            } else if nums[1] > nums[0] && nums[1] > nums[2] {
+                if nums[0].max(nums[2]) == nums[0] {
+                println!("here 5");
+                    nums[2] += 1;
+                } else if nums[0].max(nums[2]) == nums[2] {
+                println!("here 6");
+                    nums[0] += 1;
+                }
+                println!("here 7");
+                nums[1] -= 1;
+                turns += 1;
+            } else if nums[2] > nums[0] && nums[2] > nums[1] {
+                if nums[0].max(nums[1]) == nums[0] {
+                println!("here 8");
+                    nums[1] += 1;
+                } else if nums[0].max(nums[1]) == nums[1] {
+                println!("here 9");
+                    nums[0] += 1;
+                }
+                println!("here 10");
+                nums[2] -= 1;
+                turns += 1;
+            } else {
+                println!("shouldnt hit this");
+            }
+        }
+
+        games -= 1;
+        // println!("{}", nums[0].max(nums[1]));
+        // assert_eq!(nums[0], nums[1]);
+        // println!("{}", nums[1].max(nums[2]));
+        // println!("{}", nums[0].max(nums[2]));
+        // println!("num: {:?}", nums);
+        //let mut s = letters[0].to_string();
+        // let (first, last) = s.split_at_mut(1);
+        // println!("{}{}", first.to_uppercase(), last);
+    }
+}
+/* if 2 equal end
+ * if i greater than i -= 1 until =
+ */

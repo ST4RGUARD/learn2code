@@ -5,6 +5,7 @@ mod expression;
 mod functions;
 mod loops;
 mod shadowing;
+mod slice;
 mod tuples;
 mod vars;
 
@@ -21,4 +22,10 @@ fn main() {
     expression::expression();
     conditional::conditional();
     loops::loop_label();
+
+    let mut s = String::from("hello world");
+
+    let word = slice::first_word(&s);
+    println!("The first word len is {}", word);
+    s.clear();
 }

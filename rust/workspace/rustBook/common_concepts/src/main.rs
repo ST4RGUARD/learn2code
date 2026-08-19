@@ -1,6 +1,7 @@
 mod arrays;
 mod conditional;
 mod constants;
+mod enums;
 mod expression;
 mod functions;
 mod loops;
@@ -9,6 +10,7 @@ mod slice;
 mod structs;
 mod tuples;
 mod vars;
+mod vec;
 
 fn main() {
     vars::mutability();
@@ -23,17 +25,8 @@ fn main() {
     expression::expression();
     conditional::conditional();
     loops::loop_label();
-
-    let mut s = String::from("hello world");
-
-    let word = slice::first_word(&s);
-    println!("The first word len is {}", word);
-    s.clear();
-
-    let mut user1 = structs::User::new(
-        "someusername".to_string(),
-        "someone@example.com".to_string(),
-    );
-
-    user1.email = "changed@example.com".to_string();
+    slice::slice_word();
+    structs::my_struct();
+    vec::vects();
+    enums::stubby();
 }

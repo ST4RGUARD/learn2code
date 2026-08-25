@@ -4,6 +4,7 @@ mod constants;
 mod enums;
 mod expression;
 mod functions;
+mod hash;
 mod loops;
 mod shadowing;
 mod slice;
@@ -31,4 +32,5 @@ fn main() {
     vec::vects();
     enums::stubby();
     strings::string_ex();
+    hash::get_hashmaps();
 }

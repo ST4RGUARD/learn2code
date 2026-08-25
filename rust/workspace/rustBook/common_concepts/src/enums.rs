@@ -68,6 +68,10 @@ fn validate_cell_type() {
     for i in &row {
         if let Some(num) = i.as_int() {
             println!("Got integer: {}", num);
+        } else if let Some(num) = i.as_float() {
+            println!("Got float: {}", num);
+        } else if let Some(text) = i.as_text() {
+            println!("Got text: {}", text);
         }
     }
 }

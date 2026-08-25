@@ -7,6 +7,7 @@ mod functions;
 mod loops;
 mod shadowing;
 mod slice;
+mod strings;
 mod structs;
 mod tuples;
 mod vars;
@@ -29,4 +30,5 @@ fn main() {
     structs::my_struct();
     vec::vects();
     enums::stubby();
+    strings::string_ex();
 }

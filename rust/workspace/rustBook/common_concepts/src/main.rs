@@ -2,6 +2,7 @@ mod arrays;
 mod conditional;
 mod constants;
 mod enums;
+mod errors;
 mod expression;
 mod functions;
 mod hash;
@@ -33,4 +34,5 @@ fn main() {
     enums::stubby();
     strings::string_ex();
     hash::get_hashmaps();
+    errors::errors();
 }

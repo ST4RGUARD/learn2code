@@ -5,6 +5,7 @@ mod enums;
 mod errors;
 mod expression;
 mod functions;
+mod generics;
 mod hash;
 mod loops;
 mod shadowing;
@@ -35,4 +36,5 @@ fn main() {
     strings::string_ex();
     hash::get_hashmaps();
     errors::errors();
+    generics::largest_number();
 }

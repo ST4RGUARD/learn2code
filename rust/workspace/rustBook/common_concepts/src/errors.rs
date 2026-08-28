@@ -84,11 +84,11 @@ fn fs_read_to_string() -> Result<String, io::Error> {
 
 pub fn errors() {
     //panic_ex();
-    result_ex();
-    error_kind_ex();
-    unwrap_ex();
-    expect_ex();
-    operator_question_mark_ex();
-    shorter_operator_question_mark_ex();
-    fs_read_to_string();
+    //result_ex();
+    //error_kind_ex();
+    //unwrap_ex();
+    //expect_ex();
+    //operator_question_mark_ex();
+    //shorter_operator_question_mark_ex();
+    //fs_read_to_string();
 }

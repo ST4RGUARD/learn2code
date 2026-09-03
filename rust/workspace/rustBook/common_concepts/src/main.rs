@@ -12,6 +12,7 @@ mod shadowing;
 mod slice;
 mod strings;
 mod structs;
+mod traits;
 mod tuples;
 mod vars;
 mod vec;
@@ -37,4 +38,10 @@ fn main() {
     hash::get_hashmaps();
     errors::errors();
     generics::largest_number();
+    traits::talking_animals_trait_ex();
+    traits::greeting_default_or_override_trait_ex();
+    traits::function_parameter_trait_ex();
+    traits::function_return_trait_ex();
+    traits::trait_bounds_ex();
+    traits::multiple_traits_ex();
 }

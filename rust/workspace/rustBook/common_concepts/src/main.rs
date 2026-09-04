@@ -7,6 +7,7 @@ mod expression;
 mod functions;
 mod generics;
 mod hash;
+mod lifetimes;
 mod loops;
 mod shadowing;
 mod slice;
@@ -44,4 +45,7 @@ fn main() {
     traits::function_return_trait_ex();
     traits::trait_bounds_ex();
     traits::multiple_traits_ex();
+    lifetimes::lifetime_basic_ex();
+    lifetimes::lifetimes_longer_ex();
+    lifetimes::lifetimes_different_ex();
 }

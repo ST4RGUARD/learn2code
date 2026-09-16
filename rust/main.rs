@@ -5,4 +5,5 @@ fn main() {
     println!("{}", y);
 
     x + 10;
+    println!("{}", x);
 }

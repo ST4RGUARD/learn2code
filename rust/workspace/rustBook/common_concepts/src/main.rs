@@ -13,6 +13,7 @@ mod shadowing;
 mod slice;
 mod strings;
 mod structs;
+mod testing;
 mod traits;
 mod tuples;
 mod vars;
@@ -48,4 +49,5 @@ fn main() {
     lifetimes::lifetime_basic_ex();
     lifetimes::lifetimes_longer_ex();
     lifetimes::lifetimes_different_ex();
+    testing::add(2, 3);
 }
